@@ -1,7 +1,6 @@
 # Hi, I'm HSTK
 
 Java backend developer in training.  
-Incoming M.Eng. student in Computer Technology at Tiangong University.
 
 - Focus: Java backend development, MySQL, Redis, RabbitMQ, and IoT systems
 - Currently learning: machine learning basics, PyTorch, and Kaggle workflows
