@@ -26,13 +26,3 @@ My background is in IoT engineering and competitive programming. I’ve worked o
 | Embedded & IoT | ESP32 · MQTT · RFID · Environmental sensing |
 | Backend | Spring Boot · MyBatis |
 | Frontend | Vue · TypeScript · Element UI · ECharts |
-
-### Activity, in orbit
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="assets/activity-light.svg" />
-  <img src="assets/activity-light.svg" width="100%" alt="My GitHub contribution calendar with an animated satellite-style scan" />
-</picture>
-
-<sub>Real GitHub contribution data, refreshed daily. Artwork is generated and stored in this repository.</sub>

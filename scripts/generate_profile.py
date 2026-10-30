@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Generate self-hosted SVG animations from GitHub's contribution calendar."""
+"""Generate the self-hosted animated research banner. No API token is needed."""
 from pathlib import Path
-import argparse,html,json,os,urllib.request,datetime,math
+import html,math
 ROOT=Path(__file__).resolve().parents[1]
 PALETTES={'dark':dict(bg='#0d1117',ink='#e6edf3',muted='#9da7b3',line='#30363d',accent='#f59e87',cells=['#161b22','#4a302c','#784b3f','#b8755b','#f59e87']), 'light':dict(bg='#ffffff',ink='#24292f',muted='#57606a',line='#d0d7de',accent='#ad4834',cells=['#ebedf0','#f3d8c7','#dda88e','#c97555','#ad4834'])}
 def svg(w,h,content,label):return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{html.escape(label,quote=True)}"><title>{html.escape(label)}</title>{content}</svg>'''
@@ -21,38 +21,11 @@ def banner(p):
  # Use exactly the same centered ellipse for the satellite motion and the visible orbit.
  content=content.replace('M 74 0 A 112 42 0 1 1 -74 0 A 112 42 0 1 1 74 0','M 112 0 A 112 42 0 1 1 -112 0 A 112 42 0 1 1 112 0')
  return svg(980,240,content,'Sun Tao / HSTK. Remote sensing, pansharpening, and engineering. Animated satellite orbit and research title.')
-def calendar(data,p):
- weeks=data['weeks'];step=15;grid_width=len(weeks)*step;w=980
- rects=[];labels=[];last_month=None
- for x,week in enumerate(weeks):
-  for day in week['contributionDays']:
-   date=datetime.date.fromisoformat(day['date']);y=(date.weekday()+1)%7;count=day['contributionCount'];level=0 if not count else 1 if count<3 else 2 if count<6 else 3 if count<10 else 4
-   rects.append(f'<rect x="{x*step}" y="{y*step}" width="11" height="11" rx="2" fill="{p["cells"][level]}"><title>{date}: {count} contributions</title></rect>')
-   month=date.strftime('%b')
-   if month!=last_month and (last_month is None or date.day==1):
-    if not labels or x*step-int(labels[-1][0])>30:labels.append((x*step,month))
-    last_month=month
- month_svg=''.join(f'<text x="{x}" y="-10">{month}</text>' for x,month in labels)
- total=data['totalContributions'];first=weeks[0]['contributionDays'][0]['date'];last=weeks[-1]['contributionDays'][-1]['date']
- content=f'''<defs><clipPath id="grid"><rect width="{grid_width}" height="105"/></clipPath><linearGradient id="beam"><stop stop-color="{p['accent']}" stop-opacity="0"/><stop offset="1" stop-color="{p['accent']}" stop-opacity=".22"/></linearGradient></defs><rect x=".5" y=".5" width="979" height="235" rx="14" fill="{p['bg']}" stroke="{p['line']}"/>
-<g font-family="Arial,Helvetica,sans-serif"><text x="32" y="32" font-size="11" letter-spacing="2" fill="{p['accent']}">THE ACTIVITY MAP</text><text x="32" y="59" font-size="18" fill="{p['ink']}">{total:,} contributions in the past year</text>
-<g transform="translate(32 94)"><g fill="{p['muted']}" font-size="10">{month_svg}</g>{''.join(rects)}<g clip-path="url(#grid)"><g transform="translate(-60 0)"><animateTransform attributeName="transform" type="translate" from="-60 0" to="{grid_width+60} 0" dur="14s" repeatCount="indefinite"/><rect width="60" height="105" fill="url(#beam)"/><path d="M60 0V105" stroke="{p['accent']}" stroke-width="1" opacity=".6"/></g></g></g><text x="32" y="218" font-size="10" fill="{p['muted']}">{first} — {last} · Refreshed daily from GitHub</text><text x="946" y="218" text-anchor="end" font-size="10" fill="{p['accent']}">KEEP BUILDING ↗</text></g>'''
- return svg(w,236,content,'GitHub contribution calendar for hstkwow: '+str(total)+' contributions. A gentle animated scan crosses the real activity grid.')
-def fetch():
- token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
- if not token:raise RuntimeError('GH_TOKEN is required, or supply --input with a saved API response')
- query='query { user(login: "hstkwow") { contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount color } } } } } }'
- req=urllib.request.Request('https://api.github.com/graphql',data=json.dumps({'query':query}).encode(),headers={'Authorization':'Bearer '+token,'Content-Type':'application/json','User-Agent':'hstkwow-profile'})
- with urllib.request.urlopen(req,timeout=30) as response:return json.load(response)
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--input',type=Path);args=parser.parse_args();data=json.loads(args.input.read_text()) if args.input else fetch()
- if data.get('errors'):raise RuntimeError('GitHub contribution query failed; previous assets are retained')
- calendar_data=data['data']['user']['contributionsCollection']['contributionCalendar'];target=ROOT/'assets';target.mkdir(exist_ok=True)
- outputs={}
- for mode,palette in PALETTES.items():outputs['intro-'+mode+'.svg']=banner(palette);outputs['activity-'+mode+'.svg']=calendar(calendar_data,palette)
- # Finish validation before replacing any existing files.
  from xml.etree import ElementTree as ET
- for content in outputs.values():ET.fromstring(content)
- for name,content in outputs.items():(target/name).write_text(content,encoding='utf-8')
- print('Generated four valid SVG assets from the GitHub contribution calendar.')
+ target=ROOT/'assets';target.mkdir(exist_ok=True)
+ for mode,palette in PALETTES.items():
+  content=banner(palette);ET.fromstring(content)
+  (target/('intro-'+mode+'.svg')).write_text(content,encoding='utf-8')
+ print('Generated dark and light research banners.')
 if __name__=='__main__':main()
