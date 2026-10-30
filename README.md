@@ -1,28 +1,15 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/intro-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="assets/intro-light.svg" />
-  <img src="assets/intro-light.svg" width="100%" alt="Sun Tao / HSTK — remote sensing, pansharpening, and engineering" />
-</picture>
+## About
 
-## Hi, I’m Sun Tao (HSTK)
+Hi, I’m **Sun Tao (HSTK)**, a graduate student at **Tiangong University**, advised by **Yong Yang**.
 
-I’m a graduate student at **Tiangong University**, advised by **Yong Yang**. My research focuses on **pansharpening**: combining panchromatic and multispectral imagery to recover spatial detail while preserving spectral information.
+- My research focuses on **pansharpening and remote sensing**.
+- My background is in IoT engineering, competitive programming, and full-stack development.
+- I enjoy reading papers, building things, and keeping notes on what I learn.
 
-My background is in IoT engineering and competitive programming. I’ve worked on embedded devices, backend services, and web dashboards, and I enjoy turning ideas into working systems. Here I share my projects, experiments, and what I learn along the way.
+## Website
 
-[Website](https://hstkwow.top/) · [Paper notes](https://hstkwow.top/papers.html) · [Projects](https://hstkwow.top/projects.html) · [Email](mailto:hstkwow@gmail.com)
+Visit [hstkwow.top](https://hstkwow.top/) to learn more about me, browse my [projects](https://hstkwow.top/projects.html), or read my [paper notes](https://hstkwow.top/papers.html).
 
-### Currently exploring
+## Contact
 
-- **Pansharpening & remote sensing:** understanding how fusion methods preserve spatial detail and spectral information.
-- **Paper reading:** keeping method notes, diagrams, and questions in my [reading journal](https://hstkwow.top/papers.html).
-- **Engineering:** connecting algorithmic ideas with practical software and devices.
-
-### Research & engineering toolkit
-
-| Area | Tools & experience |
-| --- | --- |
-| Algorithms & graphics | C / C++ · Competitive programming · Software rasterization |
-| Embedded & IoT | ESP32 · MQTT · RFID · Environmental sensing |
-| Backend | Spring Boot · MyBatis |
-| Frontend | Vue · TypeScript · Element UI · ECharts |
+[hstkwow@gmail.com](mailto:hstkwow@gmail.com)
