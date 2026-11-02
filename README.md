@@ -1,6 +1,6 @@
 ## About
 
-Hi, I’m **HSTK**, a graduate studen.
+Hi, I’m **HSTK**, a graduate student.
 
 - My research focuses on **pansharpening and remote sensing**.
 - My background is in IoT engineering, competitive programming, and full-stack development.
