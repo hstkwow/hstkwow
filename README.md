@@ -1,6 +1,6 @@
 ## About
 
-Hi, I’m **Sun Tao (HSTK)**, a graduate student at **Tiangong University**, advised by **Yong Yang**.
+Hi, I’m **HSTK**, a graduate studen.
 
 - My research focuses on **pansharpening and remote sensing**.
 - My background is in IoT engineering, competitive programming, and full-stack development.
